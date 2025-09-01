@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="MonsterData" load_steps=3 format=3 uid="uid://btkxjyxn563ho"]
+[gd_resource type="Resource" script_class="MonsterData" load_steps=2 format=3 uid="uid://btkxjyxn563ho"]
 
-[ext_resource type="Resource" uid="uid://dhjypnr4t12ml" path="res://data/cards/acts/attack/BiggerFishToFry.tres" id="1_iy1qi"]
 [ext_resource type="Script" uid="uid://tfxh37arb4ja" path="res://data/monsters/MonsterData.gd" id="1_rph53"]
 
 [resource]
@@ -15,5 +14,5 @@ soul_attack = 3
 soul_defence = 14
 current_life = 100.0
 max_life = 100.0
-deck = Array[Resource]([ExtResource("1_iy1qi")])
+deck = Array[Resource]([])
 metadata/_custom_type_script = "uid://tfxh37arb4ja"

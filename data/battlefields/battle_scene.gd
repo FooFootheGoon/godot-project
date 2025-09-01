@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name BattleScene
 
 # We need to tell the script where to find our card scene blueprints.
@@ -22,7 +22,8 @@ const CardActAttackDisplayScene = preload("res://data/scenes/card_act_attack_dis
 @onready var draw_button3: Button = $DrawButton3
 @onready var draw_button4: Button = $DrawButton4
 @onready var battle_manager: BattleManager = $BattleManager # Get a reference to the Referee
-
+@onready var card_zoom_location = $CardZoomLayer/ZoomLocation
+var zoomed_card = null
 func _ready():
 	# Tell the BattleManager who the player's monsters are.
 	battle_manager.player_monster_left = ally_monster_1
@@ -43,14 +44,16 @@ func _ready():
 			monster_display.setup()
 			# Connect the monster's 'targeted' signal to the BattleManager.
 			monster_display.monster_targeted.connect(battle_manager.on_monster_targeted)
-			
-	# Connect the button's "pressed" signal to our new function.
-	draw_button.pressed.connect(draw_ally1)
-	draw_button2.pressed.connect(draw_ally2)
-	draw_button3.pressed.connect(draw_opponent1)
-	draw_button4.pressed.connect(draw_opponent2)
+			# Now, let's draw the initial hand for this monster.
+			for i in range(5):
+				_draw_card_for_monster(monster_display)
 	
-
+	# Connect the button's "pressed" signal to our draw function.
+	#draw_button.pressed.connect(draw_ally1)
+	#draw_button2.pressed.connect(draw_ally2)
+	#draw_button3.pressed.connect(draw_opponent1)
+	#draw_button4.pressed.connect(draw_opponent2)
+	
 func _draw_card_for_monster(current_monster: MonsterDisplay):
 	if not current_monster.active_deck.is_empty():
 		var new_card_display = null
@@ -59,9 +62,8 @@ func _draw_card_for_monster(current_monster: MonsterDisplay):
 		# Now we check the card's type!
 		if card_to_draw_data is CardDataActAttack:
 			new_card_display = CardActAttackDisplayScene.instantiate()
-		# Commented out until a CardDataActUtility.gd script exists:
-		#elif card_to_draw_data is CardDataActUtility:
-			#new_card_display = CardActUtilityDisplayScene.instantiate()
+		elif card_to_draw_data is CardDataAct:
+			new_card_display = CardActDisplayScene.instantiate()
 		# Commented out until a CardDataPlot.gd script exists:
 		#elif card_to_draw_data is CardDataPlot:
 			#new_card_display = CardPlotDisplayScene.instantiate()
@@ -78,6 +80,8 @@ func _draw_card_for_monster(current_monster: MonsterDisplay):
 			new_card_display.setup()
 			new_card_display.owner_monster = current_monster
 			new_card_display.card_selected.connect(battle_manager.on_card_selected)
+			new_card_display.hovered.connect(_on_card_hovered)
+			new_card_display.unhovered.connect(_on_card_unhovered)
 	else:
 		print("This monster's deck is empty.")
 		
@@ -91,12 +95,27 @@ func _draw_card_from_index(index: int):
 
 func draw_ally1():
 	_draw_card_from_index(0)
-
 func draw_ally2():
 	_draw_card_from_index(1)
-
 func draw_opponent1():
 	_draw_card_from_index(2)
-		
 func draw_opponent2():
 	_draw_card_from_index(3)
+
+func _on_card_hovered(card_to_zoom):
+	# If there's already a zoomed card, get rid of it first
+	if zoomed_card:
+		zoomed_card.queue_free()
+
+	# Create a copy of the card that was hovered
+	zoomed_card = card_to_zoom.duplicate()
+	# Add the copy to our special zoom location
+	card_zoom_location.add_child(zoomed_card)
+	# Make it bigger
+	zoomed_card.scale = Vector2(2, 2)
+
+func _on_card_unhovered():
+	# If there's a zoomed card, get rid of it
+	if zoomed_card:
+		zoomed_card.queue_free()
+		zoomed_card = null

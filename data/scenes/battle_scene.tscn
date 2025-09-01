@@ -8,64 +8,87 @@
 [ext_resource type="Resource" uid="uid://btkxjyxn563ho" path="res://data/monsters/species/afterthought.tres" id="5_uqde3"]
 [ext_resource type="Resource" uid="uid://24vn4b56u1k5" path="res://data/monsters/species/overflow.tres" id="6_vnskd"]
 
-[node name="BattleScene" type="Node2D"]
+[node name="BattleScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_ymdes")
 
 [node name="AllyMonster1" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
-position = Vector2(32, 462)
+position = Vector2(348, 533)
 monster_data = ExtResource("6_vnskd")
 hand_container = NodePath("../Ally1Hand")
 
 [node name="AllyMonster2" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
-position = Vector2(642, 461)
+position = Vector2(676, 528)
 monster_data = ExtResource("4_g1f4x")
 hand_container = NodePath("../Ally2Hand")
 
 [node name="EnemyMonster1" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
-position = Vector2(33, 144)
+position = Vector2(332, 224)
 monster_data = ExtResource("5_uqde3")
 hand_container = NodePath("../Enemy1Hand")
 
 [node name="EnemyMonster2" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
-position = Vector2(640, 161)
+position = Vector2(674, 228)
 monster_data = ExtResource("3_wm5pp")
 hand_container = NodePath("../Enemy2Hand")
 
 [node name="Ally1Hand" type="HBoxContainer" parent="."]
-offset_left = 138.0
-offset_top = 433.0
-offset_right = 405.0
-offset_bottom = 579.0
-theme_override_constants/separation = 80
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -146.0
+offset_right = 267.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = -120
 alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Ally2Hand" type="HBoxContainer" parent="."]
-offset_left = 731.0
-offset_top = 417.0
-offset_right = 1022.0
-offset_bottom = 565.0
-theme_override_constants/separation = 80
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -291.0
+offset_top = -148.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = -120
 alignment = 1
 
 [node name="Enemy1Hand" type="HBoxContainer" parent="."]
-offset_left = 130.0
-offset_top = 110.0
-offset_right = 357.0
-offset_bottom = 241.0
-theme_override_constants/separation = 80
+layout_mode = 1
+offset_right = 227.0
+offset_bottom = 131.0
+theme_override_constants/separation = -120
 alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="Enemy2Hand" type="HBoxContainer" parent="."]
-offset_left = 736.0
-offset_top = 120.0
-offset_right = 1013.0
-offset_bottom = 245.0
-theme_override_constants/separation = 80
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -277.0
+offset_bottom = 125.0
+grow_horizontal = 0
+theme_override_constants/separation = -120
 alignment = 1
 
 [node name="DrawButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.015625
+anchor_top = 0.587963
+anchor_right = -0.015625
+anchor_bottom = 0.587963
 offset_left = 174.0
 offset_top = 347.0
 offset_right = 303.0
@@ -74,13 +97,19 @@ text = "Draw a card"
 metadata/_edit_use_anchors_ = true
 
 [node name="DrawButton2" type="Button" parent="."]
-offset_left = 789.0
-offset_top = 335.0
-offset_right = 918.0
-offset_bottom = 404.0
+offset_left = 825.0
+offset_top = 696.0
+offset_right = 954.0
+offset_bottom = 765.0
 text = "Draw a card"
 
 [node name="DrawButton3" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0338542
+anchor_top = -0.268519
+anchor_right = 0.0338542
+anchor_bottom = -0.268519
 offset_left = 191.0
 offset_top = 27.0
 offset_right = 320.0
@@ -89,6 +118,12 @@ text = "Draw a card"
 metadata/_edit_use_anchors_ = true
 
 [node name="DrawButton4" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0373264
+anchor_top = -0.294753
+anchor_right = 0.0373264
+anchor_bottom = -0.294753
 offset_left = 788.0
 offset_top = 37.0
 offset_right = 917.0
@@ -100,10 +135,10 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("2_wm5pp")
 
 [node name="InitiativeSliderLeft" type="VSlider" parent="."]
-offset_left = -58.0
-offset_top = 20.0
-offset_right = 84.0
-offset_bottom = 499.0
+offset_left = 484.0
+offset_top = 87.0
+offset_right = 626.0
+offset_bottom = 573.0
 min_value = -6.0
 max_value = 6.0
 editable = false
@@ -112,13 +147,25 @@ tick_count = 13
 ticks_on_borders = true
 
 [node name="InitiativeSliderRight" type="VSlider" parent="."]
-offset_left = 581.0
-offset_top = 21.0
-offset_right = 628.0
-offset_bottom = 482.0
+offset_left = 615.0
+offset_top = 88.0
+offset_right = 662.0
+offset_bottom = 574.0
 min_value = -6.0
 max_value = 6.0
 editable = false
 scrollable = false
 tick_count = 13
 ticks_on_borders = true
+
+[node name="CardZoomLayer" type="CanvasLayer" parent="."]
+
+[node name="ZoomLocation" type="Control" parent="CardZoomLayer"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
