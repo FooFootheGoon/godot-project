@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardDataActAttack" load_steps=2 format=3 uid="uid://dfm1prxrxwc5j"]
+
+[ext_resource type="Script" uid="uid://b526eue367yh4" path="res://data/cards/CardDataActAttack.gd" id="1_8yoox"]
+
+[resource]
+script = ExtResource("1_8yoox")
+card_element = 5
+card_stat = 1
+card_power = 4
+card_subtype = 0
+card_cost = 1
+card_name = "Mind"
+card_type = 0
+card_description = "Card effect goes here."
+metadata/_custom_type_script = "uid://b526eue367yh4"

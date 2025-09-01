@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CardDataActAttack" load_steps=3 format=3 uid="uid://cvw0vgqyf7jc4"]
+
+[ext_resource type="Script" uid="uid://b526eue367yh4" path="res://data/cards/CardDataActAttack.gd" id="1_icn38"]
+[ext_resource type="Script" uid="uid://b52p5myjgkxvm" path="res://data/cards/DeliveranceEffect.gd" id="1_tkb31"]
+
+[resource]
+script = ExtResource("1_icn38")
+card_element = 14
+card_stat = 0
+card_power = 4
+card_subtype = 0
+card_cost = 1
+deliverance_effects = Array[ExtResource("1_tkb31")]([])
+card_name = "Heart"
+card_type = 0
+card_description = "Deal damage."
+flavour_tags = Array[int]([])
+affection_tags = Array[int]([])
+keyword_tags = Array[int]([])
+ability_tags = Array[int]([])
+metadata/_custom_type_script = "uid://b526eue367yh4"

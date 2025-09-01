@@ -1,0 +1,83 @@
+[gd_resource type="Resource" script_class="CardDataActAttack" load_steps=8 format=3 uid="uid://dhjypnr4t12ml"]
+
+[ext_resource type="Script" uid="uid://b52p5myjgkxvm" path="res://data/cards/DeliveranceEffect.gd" id="1_j2fyx"]
+[ext_resource type="Script" uid="uid://b526eue367yh4" path="res://data/cards/CardDataActAttack.gd" id="2_2j7kk"]
+
+[sub_resource type="Resource" id="Resource_j2fyx"]
+script = ExtResource("1_j2fyx")
+condition_type = 2
+condition_element = 0
+conditional_id = "\"target_higher_health\""
+affected_property = 0
+action_type = 2
+value = "\"Bigger \""
+format_arg_index = -1
+metadata/_custom_type_script = "uid://b52p5myjgkxvm"
+
+[sub_resource type="Resource" id="Resource_2j7kk"]
+script = ExtResource("1_j2fyx")
+condition_type = 2
+condition_element = 0
+conditional_id = "\"target_higher_health\""
+affected_property = 4
+action_type = 2
+value = "\"As long as this Act targets a monster with more health than its teammate—This Act crits.\""
+format_arg_index = -1
+metadata/_custom_type_script = "uid://b52p5myjgkxvm"
+
+[sub_resource type="Resource" id="Resource_kbfpa"]
+script = ExtResource("1_j2fyx")
+condition_type = 1
+condition_element = 5
+conditional_id = ""
+affected_property = 2
+action_type = 2
+value = "\"fish to \""
+format_arg_index = -1
+metadata/_custom_type_script = "uid://b52p5myjgkxvm"
+
+[sub_resource type="Resource" id="Resource_y1gxj"]
+script = ExtResource("1_j2fyx")
+condition_type = 1
+condition_element = 5
+conditional_id = ""
+affected_property = 1
+action_type = 1
+value = "\"1\""
+format_arg_index = -1
+metadata/_custom_type_script = "uid://b52p5myjgkxvm"
+
+[sub_resource type="Resource" id="Resource_3o0a2"]
+script = ExtResource("1_j2fyx")
+condition_type = 1
+condition_element = 5
+conditional_id = ""
+affected_property = 4
+action_type = 2
+value = "\"{Water sap.}\""
+format_arg_index = -1
+metadata/_custom_type_script = "uid://b52p5myjgkxvm"
+
+[resource]
+script = ExtResource("2_2j7kk")
+card_element = 2
+card_stat = 1
+display_power = "2 {+1}"
+base_power = 2
+card_subtype = 0
+display_cost = "1"
+base_cost = 1
+deliverance_effects = Array[ExtResource("1_j2fyx")]([SubResource("Resource_j2fyx"), SubResource("Resource_2j7kk"), SubResource("Resource_kbfpa"), SubResource("Resource_y1gxj"), SubResource("Resource_3o0a2")])
+display_name = "[Bigger] {fish to} fry"
+base_name = "fry"
+card_type = 0
+display_description = "Deal damage:
+[As long as this Act targets a monster with more health than its teammate—This Act crits.]
+Your Tension rises.
+{Water sap.}"
+base_description = "Card effect."
+flavour_tags = Array[int]([1, 8])
+affection_tags = Array[int]([])
+keyword_tags = Array[int]([])
+ability_tags = Array[int]([23])
+metadata/_custom_type_script = "uid://b526eue367yh4"

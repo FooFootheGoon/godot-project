@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://bmn1qxdlgrhfc"]
+
+[ext_resource type="Script" uid="uid://kx4088lryaf8" path="res://data/battlefields/battle_scene.gd" id="1_ymdes"]
+[ext_resource type="PackedScene" uid="uid://mrk845qek6yp" path="res://data/scenes/monster_display.tscn" id="2_iqq1p"]
+[ext_resource type="Script" uid="uid://dv2lfj5ftjx4p" path="res://data/battlefields/battle_manager.gd" id="2_wm5pp"]
+[ext_resource type="Resource" uid="uid://bad71xxujhmi7" path="res://data/monsters/species/supertask.tres" id="3_wm5pp"]
+[ext_resource type="Resource" uid="uid://b0thanc3lqv2g" path="res://data/monsters/species/eyesore.tres" id="4_g1f4x"]
+[ext_resource type="Resource" uid="uid://btkxjyxn563ho" path="res://data/monsters/species/afterthought.tres" id="5_uqde3"]
+[ext_resource type="Resource" uid="uid://24vn4b56u1k5" path="res://data/monsters/species/overflow.tres" id="6_vnskd"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_ymdes")
+
+[node name="AllyMonster1" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
+position = Vector2(32, 462)
+monster_data = ExtResource("6_vnskd")
+hand_container = NodePath("../Ally1Hand")
+
+[node name="AllyMonster2" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
+position = Vector2(642, 461)
+monster_data = ExtResource("4_g1f4x")
+hand_container = NodePath("../Ally2Hand")
+
+[node name="EnemyMonster1" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
+position = Vector2(33, 144)
+monster_data = ExtResource("5_uqde3")
+hand_container = NodePath("../Enemy1Hand")
+
+[node name="EnemyMonster2" parent="." node_paths=PackedStringArray("hand_container") instance=ExtResource("2_iqq1p")]
+position = Vector2(640, 161)
+monster_data = ExtResource("3_wm5pp")
+hand_container = NodePath("../Enemy2Hand")
+
+[node name="Ally1Hand" type="HBoxContainer" parent="."]
+offset_left = 138.0
+offset_top = 433.0
+offset_right = 405.0
+offset_bottom = 579.0
+theme_override_constants/separation = 80
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Ally2Hand" type="HBoxContainer" parent="."]
+offset_left = 731.0
+offset_top = 417.0
+offset_right = 1022.0
+offset_bottom = 565.0
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="Enemy1Hand" type="HBoxContainer" parent="."]
+offset_left = 130.0
+offset_top = 110.0
+offset_right = 357.0
+offset_bottom = 241.0
+theme_override_constants/separation = 80
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Enemy2Hand" type="HBoxContainer" parent="."]
+offset_left = 736.0
+offset_top = 120.0
+offset_right = 1013.0
+offset_bottom = 245.0
+theme_override_constants/separation = 80
+alignment = 1
+
+[node name="DrawButton" type="Button" parent="."]
+offset_left = 174.0
+offset_top = 347.0
+offset_right = 303.0
+offset_bottom = 416.0
+text = "Draw a card"
+metadata/_edit_use_anchors_ = true
+
+[node name="DrawButton2" type="Button" parent="."]
+offset_left = 789.0
+offset_top = 335.0
+offset_right = 918.0
+offset_bottom = 404.0
+text = "Draw a card"
+
+[node name="DrawButton3" type="Button" parent="."]
+offset_left = 191.0
+offset_top = 27.0
+offset_right = 320.0
+offset_bottom = 96.0
+text = "Draw a card"
+metadata/_edit_use_anchors_ = true
+
+[node name="DrawButton4" type="Button" parent="."]
+offset_left = 788.0
+offset_top = 37.0
+offset_right = 917.0
+offset_bottom = 106.0
+text = "Draw a card"
+metadata/_edit_use_anchors_ = true
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("2_wm5pp")
+
+[node name="InitiativeSliderLeft" type="VSlider" parent="."]
+offset_left = -58.0
+offset_top = 20.0
+offset_right = 84.0
+offset_bottom = 499.0
+min_value = -6.0
+max_value = 6.0
+editable = false
+scrollable = false
+tick_count = 13
+ticks_on_borders = true
+
+[node name="InitiativeSliderRight" type="VSlider" parent="."]
+offset_left = 581.0
+offset_top = 21.0
+offset_right = 628.0
+offset_bottom = 482.0
+min_value = -6.0
+max_value = 6.0
+editable = false
+scrollable = false
+tick_count = 13
+ticks_on_borders = true
