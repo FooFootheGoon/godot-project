@@ -1,30 +1,27 @@
 class_name CardActAttackDisplay
-extends CardDisplay
-
-@export var card_data: CardDataActAttack
+extends CardActDisplay
 
 # Drag your Label nodes here in the Inspector.
 # Putting all the labels into a single dictionary
 # rather than @OnReadying them all individually
-@onready var labels = {
-	"name":$VBoxContainer/CardNameLabel ,
-	"cost": $VBoxContainer/CardCostLabel,
-	"type": $VBoxContainer/CardTypeLabel,
-	"subtype": $VBoxContainer/CardSubtypeLabel,
-	"power": $VBoxContainer/CardPowerLabel,
-	"stat": $VBoxContainer/CardStatLabel,
-	"element": $VBoxContainer/CardElementLabel,
-	"description": $VBoxContainer/CardDescriptionLabel
+# The dictionary for unique attack labels is correct.
+@onready var attack_labels = {
+	"power": $MarginContainer/VBoxContainer/DeliveranceBar/PowerLabel,
+	"stat": $MarginContainer/VBoxContainer/TypeBar/StatIconLabel,
+	"element": $MarginContainer/VBoxContainer/ElementBar/ElementLabel,
+	#unassigned: $MarginContainer/VBoxContainer/ElementBar/ElementIconLabel,
+	#$MarginContainer/VBoxContainer/DeliveranceBar/DeliveranceLabel,
 }
 
 func setup():
+	super.setup() # This runs the setup from CardActDisplay first
+	if not card_data:
+		return
+
+	# We can do the same trick for autocompletion here.
+	var data: CardDataActAttack = card_data
+
 	if card_data:
-		labels.name.text = card_data.display_name
-		labels.cost.text = str(card_data.display_cost)
-		# The keys function looks up the name of an entry in an enum or dictionary:
-		labels.type.text = CardDataActAttack.CardType.keys()[card_data.card_type]
-		labels.subtype.text = CardDataActAttack.Subtype.keys()[card_data.card_subtype]
-		labels.power.text = str(card_data.display_power)
-		labels.stat.text = CardDataActAttack.Stat.keys()[card_data.card_stat]
-		labels.element.text = CardDataActAttack.Element.keys()[card_data.card_element]
-		labels.description.text = card_data.display_description
+		attack_labels.power.text = str(data.display_power)
+		attack_labels.stat.text = CardDataActAttack.Stat.keys()[data.card_stat]
+		attack_labels.element.text = CardDataActAttack.Element.keys()[data.card_element]

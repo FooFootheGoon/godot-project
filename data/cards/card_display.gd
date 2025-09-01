@@ -6,10 +6,11 @@ extends Control
 func setup():
 	pass
 
+@export var card_data: CardData
+
 var owner_monster: MonsterDisplay = null
 
 signal card_selected(card_display_node)
-
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		# When clicked, emit our custom signal, sending a reference to itself.

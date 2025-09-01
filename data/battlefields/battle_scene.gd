@@ -2,9 +2,10 @@ extends Node2D
 class_name BattleScene
 
 # We need to tell the script where to find our card scene blueprints.
+const CardDisplayScene = preload("res://data/cards/card_display.gd")
+const CardActDisplayScene = preload("res://data/scenes/card_act_display.tscn")
 const CardActAttackDisplayScene = preload("res://data/scenes/card_act_attack_display.tscn")
 # Commented out until these scenes exist:
-#const CardActUtilityDisplayScene = preload("res://data/scenes/card_act_utility_display.tscn")
 #const CardPlotDisplayScene = preload("res://data/scenes/card_plot_display.tscn")
 #const CardPlotFoldedDisplayScene = preload("res://data/scenes/card_plot_folded_display.tscn")
 #const CardTellDisplayScene = preload("res://data/scenes/card_tell_display.tscn")

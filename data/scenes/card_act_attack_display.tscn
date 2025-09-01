@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://y7s5asjy1qe8" path="res://data/scenes/card_act_display.tscn" id="1_yura8"]
 [ext_resource type="Script" uid="uid://dilkwd0xn24jl" path="res://data/cards/card_act_attack_display.gd" id="2_4dlc6"]
 
-[node name="CardActDisplay" instance=ExtResource("1_yura8")]
+[node name="CardActAttackDisplay" instance=ExtResource("1_yura8")]
 script = ExtResource("2_4dlc6")
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/TypeBar" index="3"]
@@ -11,6 +11,7 @@ layout_mode = 2
 
 [node name="StatIconLabel" type="Label" parent="MarginContainer/VBoxContainer/TypeBar" index="4"]
 layout_mode = 2
+horizontal_alignment = 2
 
 [node name="ElementBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
@@ -23,9 +24,11 @@ layout_mode = 2
 
 [node name="ElementIconLabel" type="Label" parent="MarginContainer/VBoxContainer/ElementBar" index="2"]
 layout_mode = 2
+horizontal_alignment = 2
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/DeliveranceBar" index="1"]
 layout_mode = 2
 
 [node name="PowerLabel" type="Label" parent="MarginContainer/VBoxContainer/DeliveranceBar" index="2"]
 layout_mode = 2
+horizontal_alignment = 2

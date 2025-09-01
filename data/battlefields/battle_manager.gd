@@ -22,18 +22,15 @@ func _update_initiative_displays():
 	initiative_slider_left.value = -1 * lane_initiative_left
 	initiative_slider_right.value = -1 * lane_initiative_right
 
-# These functions were in your battle_scene.gd
 func on_card_selected(card_node):
 	self.selected_card = card_node
-	print("Selected card: ", card_node.card_data.card_name)
+	print("Selected card: ", card_node.card_data.display_name)
 
 func on_monster_targeted(monster_node):
 	var card = self.selected_card
 	if card:
-		# We're passing the work off to the new helper function.
 		_play_card(card, monster_node)
 	else:
-		# If there's no card selected, we should let the player know.
 		print("No card selected. Cannot target monster.")
 
 func _unhandled_input(event):
@@ -94,19 +91,22 @@ func _play_card(card: CardDisplay, target_monster: MonsterDisplay):
 						attacker_stat = card_owner.monster_data.soul_attack
 						defender_stat = target_monster.monster_data.soul_defence
 				
-				# For now, our multiplier is just 1. We can add logic for it later.
 				var total_damage = 0.0
-				var multiplier = 1.0
+				var multiplier = 1.0 #TODO: Add multipliers' logic.
+				
 				# 4. Safeguard! We can't divide by zero, so we check the defender's stat first.
 				if defender_stat >= 1:
 					total_damage = (attacker_stat * card_power * multiplier) / defender_stat
 				else:
 					print("BUG: Defender stat is %s. Shouldn't be under 1." % defender_stat)
 					total_damage = (attacker_stat * card_power * multiplier)
+				
+				# This is our new line for rounding the damage.
+				total_damage = round(total_damage * 1000) / 1000.0
+				
 				# Make sure we don't accidentally HEAL the target if their defence is super high!
 				total_damage = max(total_damage, 1.0)
-					
-				# 5. Dish out the pain!
+				
 				target_monster.take_damage(total_damage)
 			
 			card.queue_free()

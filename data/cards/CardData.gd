@@ -1,8 +1,6 @@
 class_name CardData
 extends Resource
 
-
-
 @export var display_name: String = "[Ex] Unnamed"
 @export var base_name: String = "Unnamed"
 
@@ -13,7 +11,6 @@ enum CardType{
 	Plot
 }
 @export var card_type: CardType = CardType.Act
-
 
 @export_multiline var display_description: String = """Card effect.
 (Earth Synergy.)"""
