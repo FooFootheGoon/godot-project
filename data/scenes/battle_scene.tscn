@@ -97,6 +97,7 @@ text = "Draw a card"
 metadata/_edit_use_anchors_ = true
 
 [node name="DrawButton2" type="Button" parent="."]
+layout_mode = 0
 offset_left = 825.0
 offset_top = 696.0
 offset_right = 954.0
@@ -135,6 +136,7 @@ metadata/_edit_use_anchors_ = true
 script = ExtResource("2_wm5pp")
 
 [node name="InitiativeSliderLeft" type="VSlider" parent="."]
+layout_mode = 0
 offset_left = 484.0
 offset_top = 87.0
 offset_right = 626.0
@@ -147,6 +149,7 @@ tick_count = 13
 ticks_on_borders = true
 
 [node name="InitiativeSliderRight" type="VSlider" parent="."]
+layout_mode = 0
 offset_left = 615.0
 offset_top = 88.0
 offset_right = 662.0

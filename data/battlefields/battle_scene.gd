@@ -24,6 +24,9 @@ const CardActAttackDisplayScene = preload("res://data/scenes/card_act_attack_dis
 @onready var battle_manager: BattleManager = $BattleManager # Get a reference to the Referee
 @onready var card_zoom_location = $CardZoomLayer/ZoomLocation
 var zoomed_card = null
+var card_zoom_tween_time = 0.15 # How fast the zoom animation is
+
+
 func _ready():
 	# Tell the BattleManager who the player's monsters are.
 	battle_manager.player_monster_left = ally_monster_1
@@ -103,19 +106,30 @@ func draw_opponent2():
 	_draw_card_from_index(3)
 
 func _on_card_hovered(card_to_zoom):
-	# If there's already a zoomed card, get rid of it first
 	if zoomed_card:
 		zoomed_card.queue_free()
-
-	# Create a copy of the card that was hovered
+	
 	zoomed_card = card_to_zoom.duplicate()
-	# Add the copy to our special zoom location
 	card_zoom_location.add_child(zoomed_card)
-	# Make it bigger
-	zoomed_card.scale = Vector2(2, 2)
+	
+	zoomed_card.pivot_offset = zoomed_card.size / 2
+	zoomed_card.global_position = card_to_zoom.global_position + zoomed_card.pivot_offset
+	zoomed_card.scale = Vector2(1, 1) # Start it at normal size
+	
+	var tween = create_tween().set_parallel().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	# --- THIS WAS THE MISSING LINE ---
+	# We need to tell the tween to actually animate the scale!
+	tween.tween_property(zoomed_card, "scale", Vector2(2, 2), card_zoom_tween_time)
+	
+	# This line is still optional if you want it to move up as it zooms
+	tween.tween_property(zoomed_card, "global_position:y", zoomed_card.global_position.y - 50, card_zoom_tween_time)
 
 func _on_card_unhovered():
-	# If there's a zoomed card, get rid of it
-	if zoomed_card:
-		zoomed_card.queue_free()
+	if not zoomed_card:
+		return
+	else:
+		var card_to_dismiss = zoomed_card
 		zoomed_card = null
+		var tween = create_tween().set_parallel().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_property(card_to_dismiss, "scale", Vector2(1, 1), card_zoom_tween_time)
+		tween.tween_callback(card_to_dismiss.queue_free)

@@ -14,7 +14,7 @@ extends CardActDisplay
 }
 
 func setup():
-	super.setup() # This runs the setup from CardActDisplay first
+	await super.setup() # This runs the setup from CardActDisplay first
 	if not card_data:
 		return
 

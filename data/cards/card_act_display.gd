@@ -46,7 +46,7 @@ func _on_resized():
 	pivot_offset = Vector2(size.x / 2.0, size.y)
 
 func setup():
-	super.setup() # Calls the setup() from CardDisplay (good practice)
+	await super.setup() # Calls the setup() from CardDisplay (good practice)
 	if not card_data:
 		return
 
