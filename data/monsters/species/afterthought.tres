@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MonsterData" load_steps=3 format=3 uid="uid://btkxjyxn563ho"]
 
-[ext_resource type="Resource" uid="uid://dhjypnr4t12ml" path="res://data/cards/acts/attack/BiggerFishToFry.tres" id="1_iy1qi"]
+[ext_resource type="Resource" uid="uid://cvw0vgqyf7jc4" path="res://data/cards/acts/attack/SampleHeartAttack.tres" id="1_iy1qi"]
 [ext_resource type="Script" uid="uid://tfxh37arb4ja" path="res://data/monsters/MonsterData.gd" id="1_rph53"]
 
 [resource]

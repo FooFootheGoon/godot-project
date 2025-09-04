@@ -1,27 +1,31 @@
 class_name CardActAttackDisplay
 extends CardActDisplay
 
-# Drag your Label nodes here in the Inspector.
-# Putting all the labels into a single dictionary
-# rather than @OnReadying them all individually
-# The dictionary for unique attack labels is correct.
+# A dictionary for the labels that are UNIQUE to the Attack card.
 @onready var attack_labels = {
-	"power": $MarginContainer/VBoxContainer/DeliveranceBar/PowerLabel,
 	"stat": $MarginContainer/VBoxContainer/TypeBar/StatIconLabel,
 	"element": $MarginContainer/VBoxContainer/ElementBar/ElementLabel,
-	#unassigned: $MarginContainer/VBoxContainer/ElementBar/ElementIconLabel,
-	#$MarginContainer/VBoxContainer/DeliveranceBar/DeliveranceLabel,
+	# Based on your scene file, PowerLabel is on the DeliveranceBar.
+	"power": $MarginContainer/VBoxContainer/DeliveranceBar/PowerLabel 
 }
 
-func setup():
-	await super.setup() # This runs the setup from CardActDisplay first
+# We override the setup function to add more functionality.
+func setup(data: CardData):
+	# CRITICAL: This line runs the setup() function from the parent script first.
+	# This populates all the common labels like name, cost, etc.
+	await super.setup(data)
+	
 	if not card_data:
 		return
 
-	# We can do the same trick for autocompletion here.
-	var data: CardDataActAttack = card_data
+	# This is a neat trick to help Godot's autocompletion know what kind of
+	# data we're working with, since we know it's an attack card.
+	var attack_data: CardDataActAttack = card_data
 
-	if card_data:
-		attack_labels.power.text = str(data.display_power)
-		attack_labels.stat.text = CardDataActAttack.Stat.keys()[data.card_stat]
-		attack_labels.element.text = CardDataActAttack.Element.keys()[data.card_element]
+	# Now, populate the attack-specific labels.
+	attack_labels.stat.text = CardDataActAttack.Stat.keys()[attack_data.card_stat]
+	attack_labels.element.text = CardDataActAttack.Element.keys()[attack_data.card_element]
+	attack_labels.power.text = str(attack_data.display_power)
+	
+	# We can also update the generic "Type" label from the base script.
+	labels.type.text = "Act - Attack"

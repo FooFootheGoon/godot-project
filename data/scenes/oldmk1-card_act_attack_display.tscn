@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ttio58v0r508"]
 
-[ext_resource type="Script" uid="uid://dilkwd0xn24jl" path="res://data/cards/card_act_attack_display.gd" id="1_alsyj"]
+[ext_resource type="Script" uid="uid://dilkwd0xn24jl" path="res://data/cards/oldmk2-card_act_attack_display.gd" id="1_alsyj"]
 [ext_resource type="Script" uid="uid://brqvir3uo80xh" path="res://data/cards/AutoShrinkLabel.gd" id="2_hxspy"]
 
 [node name="CardActAttackDisplay" type="Control"]

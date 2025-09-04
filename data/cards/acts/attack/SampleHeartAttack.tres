@@ -7,13 +7,18 @@
 script = ExtResource("1_icn38")
 card_element = 14
 card_stat = 0
-card_power = 4
+display_power = "0 [+3]"
+base_power = 0
 card_subtype = 0
-card_cost = 1
+display_cost = "1 {+2}"
+base_cost = 1
 deliverance_effects = Array[ExtResource("1_tkb31")]([])
-card_name = "Heart"
+display_name = "[Ex] Unnamed"
+base_name = "Unnamed"
 card_type = 0
-card_description = "Deal damage."
+display_description = "Card effect.
+(Earth Synergy.)"
+base_description = "Card effect."
 flavour_tags = Array[int]([])
 affection_tags = Array[int]([])
 keyword_tags = Array[int]([])

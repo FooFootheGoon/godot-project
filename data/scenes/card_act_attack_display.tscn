@@ -1,34 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://0rdjf7savntr"]
+[gd_scene load_steps=4 format=3 uid="uid://8d4yl04lyfm0"]
 
-[ext_resource type="PackedScene" uid="uid://y7s5asjy1qe8" path="res://data/scenes/card_act_display.tscn" id="1_yura8"]
-[ext_resource type="Script" uid="uid://dilkwd0xn24jl" path="res://data/cards/card_act_attack_display.gd" id="2_4dlc6"]
+[ext_resource type="PackedScene" uid="uid://25c3uumq2t3o" path="res://data/scenes/card_act_display.tscn" id="1_yura8"]
+[ext_resource type="Script" uid="uid://drcytcglaow45" path="res://data/cards/card_act_attack_display.gd" id="2_4dlc6"]
 
-[node name="CardActAttackDisplay" instance=ExtResource("1_yura8")]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_4dlc6"]
+color = Color(0.65098, 0.556863, 0.188235, 1)
+
+[node name="CardActDisplay" instance=ExtResource("1_yura8")]
 script = ExtResource("2_4dlc6")
-
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/TypeBar" index="3"]
-layout_mode = 2
-
-[node name="StatIconLabel" type="Label" parent="MarginContainer/VBoxContainer/TypeBar" index="4"]
-layout_mode = 2
-horizontal_alignment = 2
 
 [node name="ElementBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ElementLabel" type="Label" parent="MarginContainer/VBoxContainer/ElementBar" index="0"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.341176, 0.172549, 1)
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/ElementBar" index="1"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ElementIconLabel" type="Label" parent="MarginContainer/VBoxContainer/ElementBar" index="2"]
 layout_mode = 2
-horizontal_alignment = 2
+
+[node name="HSeparator4" type="HSeparator" parent="MarginContainer/VBoxContainer" index="3"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_4dlc6")
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/TypeBar" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="StatIconLabel" type="Label" parent="MarginContainer/VBoxContainer/TypeBar" index="2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.341176, 0.172549, 1)
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/DeliveranceBar" index="1"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="PowerLabel" type="Label" parent="MarginContainer/VBoxContainer/DeliveranceBar" index="2"]
 layout_mode = 2
-horizontal_alignment = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.341176, 0.172549, 1)

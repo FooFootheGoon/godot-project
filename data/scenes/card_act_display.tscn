@@ -1,87 +1,95 @@
-[gd_scene load_steps=3 format=3 uid="uid://y7s5asjy1qe8"]
+[gd_scene load_steps=6 format=3 uid="uid://25c3uumq2t3o"]
 
 [ext_resource type="Script" uid="uid://brqvir3uo80xh" path="res://data/cards/AutoShrinkLabel.gd" id="1_ektsp"]
-[ext_resource type="Script" uid="uid://csh7nvdgg2g14" path="res://data/cards/card_act_display.gd" id="1_qs6yw"]
+[ext_resource type="Texture2D" uid="uid://ctt70gil4t3ud" path="res://data/Parchment1.webp" id="1_p6267"]
+[ext_resource type="Script" uid="uid://w3eo10wo31vh" path="res://data/cards/card_act_display.gd" id="1_qs6yw"]
 
-[node name="CardActDisplay" type="Control"]
-clip_contents = true
-custom_minimum_size = Vector2(160, 220)
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8jjfi"]
+texture = ExtResource("1_p6267")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_p6267"]
+color = Color(0.65098, 0.556863, 0.188235, 1)
+
+[node name="CardActDisplay" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 280)
+theme_override_styles/panel = SubResource("StyleBoxTexture_8jjfi")
 script = ExtResource("1_qs6yw")
 
-[node name="BackgroundColour" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.47976, 0.308305, 0.129412, 1)
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+layout_mode = 2
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 5
 
 [node name="NameBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/NameBar"]
 layout_mode = 2
-size_flags_horizontal = 0
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.465887, 0.340026, 0.17155, 1)
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/NameBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="CostLabel" type="Label" parent="MarginContainer/VBoxContainer/NameBar"]
 layout_mode = 2
-size_flags_horizontal = 8
-horizontal_alignment = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_p6267")
 
 [node name="TypeBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TypeLabel" type="Label" parent="MarginContainer/VBoxContainer/TypeBar"]
 layout_mode = 2
-size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.341176, 0.172549, 1)
 
-[node name="EmDashLabel" type="Label" parent="MarginContainer/VBoxContainer/TypeBar"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "—"
-
-[node name="SubtypeLabel" type="Label" parent="MarginContainer/VBoxContainer/TypeBar"]
-layout_mode = 2
-size_flags_horizontal = 8
+theme_override_styles/separator = SubResource("StyleBoxLine_p6267")
 
 [node name="DeliveranceBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="DeliveranceLabel" type="Label" parent="MarginContainer/VBoxContainer/DeliveranceBar"]
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.341176, 0.172549, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_p6267")
+
+[node name="DescriptionContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
-[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer"]
-clip_contents = true
-custom_minimum_size = Vector2(1, 1)
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/DescriptionContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-autowrap_mode = 3
-clip_text = true
+size_flags_stretch_ratio = 4.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.341176, 0.172549, 1)
+autowrap_mode = 2
+text_overrun_behavior = 1
 script = ExtResource("1_ektsp")

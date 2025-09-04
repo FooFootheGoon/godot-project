@@ -1,58 +1,51 @@
 class_name CardActDisplay
 extends CardDisplay
 
+# --- Node References ---
+# A dictionary to hold all our labels for easy access.
 @onready var labels = {
 	"name": $MarginContainer/VBoxContainer/NameBar/NameLabel,
 	"cost": $MarginContainer/VBoxContainer/NameBar/CostLabel,
 	"type": $MarginContainer/VBoxContainer/TypeBar/TypeLabel,
-	"subtype": $MarginContainer/VBoxContainer/TypeBar/SubtypeLabel,
+	"description": $MarginContainer/VBoxContainer/DescriptionContainer/DescriptionLabel,
 	"deliverance": $MarginContainer/VBoxContainer/DeliveranceBar/DeliveranceLabel,
-	"description": $MarginContainer/VBoxContainer/MarginContainer/DescriptionLabel,
-	}
+}
 
-signal hovered(card)
-signal unhovered()
-
-#var hover_scale = 1.5 # How big it gets
-#var normal_scale = 1.0 # Its normal size
-#var tween_time = 0.1 # How fast the animation is, in seconds
-#var prezoom_z_index = 0
+@onready var name_bar = $MarginContainer/VBoxContainer/NameBar
+@onready var description_container = $MarginContainer/VBoxContainer/DescriptionContainer
 
 func _ready():
-	# Connect the signals when the card is created.
+	# Connect mouse signals for hover effects later.
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	resized.connect(_on_resized)
-	_on_resized()
 
-func _on_mouse_entered():
-	emit_signal("hovered", self)
-	#prezoom_z_index = z_index
-	#z_index = 10 
-	## A Tween is a little animator. We create one, tell it what to animate,
-	## and it handles the smooth transition for us.
-	#var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	#tween.tween_property(self, "scale", Vector2(hover_scale, hover_scale), tween_time)
-
-func _on_mouse_exited():
-	emit_signal("unhovered")
-	#z_index = prezoom_z_index
-	## Same again, but tweening back to its original size.
-	#var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	#tween.tween_property(self, "scale", Vector2(normal_scale, normal_scale), tween_time)
+# The main function to set up the card with data.
+func setup(data: CardData):
+	await super.setup(data) # <<< This runs the setup() from CardDisplay first!
 	
-func _on_resized():
-	# Update the pivot offset to be the new bottom-centre.
-	pivot_offset = Vector2(size.x / 2.0, size.y)
-
-func setup():
-	await super.setup() # Calls the setup() from CardDisplay (good practice)
 	if not card_data:
 		return
 
-	# Now, we populate all the common labels.
+	await get_tree().process_frame
+
+	# Populate the common labels.
 	labels.name.text = card_data.display_name
 	labels.cost.text = card_data.display_cost
 	labels.type.text = "Act"
-	labels.subtype.text = CardDataAct.Subtype.keys()[card_data.card_subtype]
+	labels.deliverance.text = "Deliverance" # Placeholder
+	
 	labels.description.set_shrinking_text(card_data.display_description)
+
+func _on_mouse_entered():
+	# Run the original animation from the parent script first
+	super._on_mouse_entered()
+	# Now add our Act-card-specific logic
+	name_bar.size_flags_stretch_ratio = 1.0
+	description_container.size_flags_stretch_ratio = 4.0
+
+func _on_mouse_exited():
+	# Run the original animation from the parent script first
+	super._on_mouse_exited()
+	# Now add our Act-card-specific logic
+	name_bar.size_flags_stretch_ratio = 4.0
+	description_container.size_flags_stretch_ratio = 1.0

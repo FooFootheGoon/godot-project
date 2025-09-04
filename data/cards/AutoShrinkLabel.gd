@@ -7,24 +7,30 @@ extends Label
 
 func set_shrinking_text(new_text: String):
 	# 1. First, reset to the largest possible font size and set the text.
-	# This ensures that if we go from a long text to a short one, the font grows back.
 	set("theme_override_font_sizes/font_size", max_font_size)
 	text = new_text
 
 	# 2. Wait for the next frame for the visual server to update the label's size.
-	# This is a common and necessary trick for UI programming in Godot.
 	await get_tree().process_frame
 
-	# 3. Now, shrink the font size in a loop until the text fits inside the box.
-	# get_minimum_size() is the size the text *wants* to be.
-	# size is the actual size of the box it has to fit in.
-	while get_minimum_size().y > size.y:
-		var current_size = get_theme_font_size("font_size")
+	# 3. Get the actual font resource so we can do proper height calculations.
+	var font = get_theme_font("font")
+	var current_font_size = get_theme_font_size("font_size")
+	
+	# This is the new, ACCURATE height calculation.
+	var true_text_height = get_line_count() * font.get_height(current_font_size)
+
+	# 4. Now, shrink the font size in a loop until the text fits inside the box.
+	while true_text_height > size.y:
+		current_font_size -= 1
 		
 		# Safety check to stop it from shrinking into nothingness.
-		if current_size <= 4:
+		if current_font_size <= 4:
 			break
 			
-		set("theme_override_font_sizes/font_size", current_size - 1)
-		# We have to wait again after each change for the new size to be calculated.
+		set("theme_override_font_sizes/font_size", current_font_size)
+		# We must wait a frame for the line_count and height to update after changing the font size.
 		await get_tree().process_frame
+		
+		# Recalculate the height with the new, smaller font size for the next loop check.
+		true_text_height = get_line_count() * font.get_height(current_font_size)
