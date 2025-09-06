@@ -48,7 +48,6 @@ grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = -120
-alignment = 1
 
 [node name="Ally2Hand" type="HBoxContainer" parent="."]
 layout_mode = 1
