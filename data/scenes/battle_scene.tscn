@@ -38,6 +38,7 @@ monster_data = ExtResource("3_wm5pp")
 hand_container = NodePath("../Enemy2Hand")
 
 [node name="Ally1Hand" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -161,13 +162,4 @@ tick_count = 13
 ticks_on_borders = true
 
 [node name="CardZoomLayer" type="CanvasLayer" parent="."]
-
-[node name="ZoomLocation" type="Control" parent="CardZoomLayer"]
-layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
+layer = 2

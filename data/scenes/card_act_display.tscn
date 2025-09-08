@@ -15,7 +15,7 @@ texture_margin_bottom = 6.0
 color = Color(0.65098, 0.556863, 0.188235, 1)
 
 [node name="CardActDisplay" type="PanelContainer"]
-custom_minimum_size = Vector2(200, 280)
+custom_minimum_size = Vector2(200, 300)
 theme_override_styles/panel = SubResource("StyleBoxTexture_8jjfi")
 script = ExtResource("1_qs6yw")
 
@@ -82,6 +82,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_p6267")
 [node name="DescriptionContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 mouse_filter = 2
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/DescriptionContainer"]

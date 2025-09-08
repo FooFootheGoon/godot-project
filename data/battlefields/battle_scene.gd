@@ -22,7 +22,7 @@ const CardActAttackDisplayScene = preload("res://data/scenes/card_act_attack_dis
 @onready var draw_button3: Button = $DrawButton3
 @onready var draw_button4: Button = $DrawButton4
 @onready var battle_manager: BattleManager = $BattleManager # Get a reference to the Referee
-@onready var card_zoom_location = $CardZoomLayer/ZoomLocation
+@onready var card_zoom_layer = $CardZoomLayer
 var zoomed_card = null
 var card_zoom_tween_time = 0.15 # How fast the zoom animation is
 var is_hovered = false
@@ -86,6 +86,9 @@ func _draw_card_for_monster(current_monster: MonsterDisplay):
 			
 			new_card_display.owner_monster = current_monster
 			new_card_display.card_selected.connect(battle_manager.on_card_selected)
+			
+			new_card_display.hovered.connect(_on_card_hovered)
+			new_card_display.unhovered.connect(_on_card_unhovered)
 	else:
 		print("This monster's deck is empty.")
 		
@@ -96,6 +99,45 @@ func _draw_card_from_index(index: int):
 		_draw_card_for_monster(monster_displays[index])
 	else:
 		print("BUG: No monster from which to draw data.")
+
+func _on_card_hovered(card_in_hand):
+	# If there's already a card zoomed, get rid of it.
+	if zoomed_card:
+		zoomed_card.queue_free()
+
+	# Create a new instance of the card scene for zooming.
+	zoomed_card = CardActDisplayScene.instantiate()
+	# Set its data from the card in the hand.
+	zoomed_card.setup(card_in_hand.card_data)
+	
+	# This is the magic bullet that fixes the flicker!
+	# It makes the zoomed card invisible to the mouse.
+	zoomed_card.mouse_filter = MOUSE_FILTER_IGNORE
+
+	# Add it to our top layer and position it
+	card_zoom_layer.add_child(zoomed_card)
+	zoomed_card.global_position = card_in_hand.global_position
+	zoomed_card.scale = Vector2(0.5, 0.5) # Start it small
+
+	# Animate!
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(zoomed_card, "scale", Vector2(1, 1), 0.2)
+	# You can also tween its position to the center of the screen, etc.
+	tween.tween_property(zoomed_card, "global_position", get_viewport_rect().size / 2 - zoomed_card.size / 2, 0.2)
+
+
+func _on_card_unhovered(card_in_hand):
+	if not zoomed_card:
+		return
+
+	var card_to_dismiss = zoomed_card
+	zoomed_card = null # Clear the reference
+
+	# Animate away and then delete
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.tween_property(card_to_dismiss, "scale", Vector2(0, 0), 0.2)
+	# When the animation is done, queue_free() deletes the node safely.
+	tween.finished.connect(card_to_dismiss.queue_free)
 
 func draw_ally1():
 	_draw_card_from_index(0)

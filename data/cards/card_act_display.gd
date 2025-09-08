@@ -15,11 +15,15 @@ extends CardDisplay
 @onready var description_container = $MarginContainer/VBoxContainer/DescriptionContainer
 
 func _ready():
-	# Connect mouse signals for hover effects later.
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
+	# First, run the _ready() function from the parent (CardDisplay).
+	# This is what sets the card's custom_minimum_size.y to the small value.
+	super._ready()
+	
+	# Now, set the stretch ratios for the "in-hand" compact view.
+	# We want the name to be the most prominent part.
+	name_bar.size_flags_stretch_ratio = 4.0
+	description_container.size_flags_stretch_ratio = 1.0
 
-# The main function to set up the card with data.
 func setup(data: CardData):
 	await super.setup(data) # <<< This runs the setup() from CardDisplay first!
 	
