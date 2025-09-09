@@ -24,10 +24,6 @@ const CardActAttackDisplayScene = preload("res://data/scenes/card_act_attack_dis
 @onready var card_zoom_layer = $CardZoomLayer
 var zoomed_card = null
 var card_zoom_tween_time = 0.15 # How fast the zoom animation is
-var is_hovered = false
-var default_y_size = 150 # The small, 'in-hand' height of your card
-var expanded_y_size = 300 # The full, 'popped-up' height of your card
-var prezoom_z_index = 0
 
 func _ready():
 	# Tell the BattleManager who the player's monsters are.
@@ -104,8 +100,6 @@ func _on_card_hovered(card_in_hand):
 		zoomed_card.queue_free()
 
 	# --- NEW SMARTER METHOD ---
-	# Instead of hard-coding the scene, we ask the card in the hand for its
-	# own scene file path. This makes it work for ANY type of card!
 	var card_scene_to_load = load(card_in_hand.scene_file_path)
 	zoomed_card = card_scene_to_load.instantiate()
 	

@@ -1,6 +1,3 @@
-# card_display.gd
-# The new "grandparent" script for ALL card types.
-
 class_name CardDisplay
 extends PanelContainer
 
@@ -13,9 +10,6 @@ signal card_selected(card)
 var card_data: CardData
 var owner_monster: MonsterDisplay
 var default_y_size = 150
-
-# --- Hover Animation Logic ---
-@onready var internal_vbox = $MarginContainer/VBoxContainer
 
 func _ready():
 	custom_minimum_size.y = default_y_size

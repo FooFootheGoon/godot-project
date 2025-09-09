@@ -40,16 +40,15 @@ func setup(data: CardData):
 	
 	labels.description.set_shrinking_text(card_data.display_description)
 
-func _on_mouse_entered():
-	# Run the original animation from the parent script first
-	super._on_mouse_entered()
-	# Now add our Act-card-specific logic
-	name_bar.size_flags_stretch_ratio = 1.0
-	description_container.size_flags_stretch_ratio = 4.0
-
-func _on_mouse_exited():
-	# Run the original animation from the parent script first
-	super._on_mouse_exited()
-	# Now add our Act-card-specific logic
-	name_bar.size_flags_stretch_ratio = 4.0
-	description_container.size_flags_stretch_ratio = 1.0
+#func _on_mouse_entered():
+	## Run the original animation from the parent script first
+	#super._on_mouse_entered()
+	## Now add our Act-card-specific logic
+	#name_bar.size_flags_stretch_ratio = 1.0
+	#description_container.size_flags_stretch_ratio = 4.0
+#func _on_mouse_exited():
+	## Run the original animation from the parent script first
+	#super._on_mouse_exited()
+	## Now add our Act-card-specific logic
+	#name_bar.size_flags_stretch_ratio = 4.0
+	#description_container.size_flags_stretch_ratio = 1.0
