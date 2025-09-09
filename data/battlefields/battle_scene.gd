@@ -10,8 +10,7 @@ const CardActAttackDisplayScene = preload("res://data/scenes/card_act_attack_dis
 #const CardPlotFoldedDisplayScene = preload("res://data/scenes/card_plot_folded_display.tscn")
 #const CardTellDisplayScene = preload("res://data/scenes/card_tell_display.tscn")
 
-# Let's get our nodes ready.
-# We are now getting references to our monsters directly.
+
 @onready var ally_monster_1: MonsterDisplay = $AllyMonster1
 @onready var ally_monster_2: MonsterDisplay = $AllyMonster2
 @onready var enemy_monster_1: MonsterDisplay = $EnemyMonster1
@@ -91,8 +90,7 @@ func _draw_card_for_monster(current_monster: MonsterDisplay):
 			new_card_display.unhovered.connect(_on_card_unhovered)
 	else:
 		print("This monster's deck is empty.")
-		
-# A helper function to reduce repetition.
+	
 func _draw_card_from_index(index: int):
 	# There are 4 monster_displays (0, 1, 2, 3). If not <4, don't even try, fucker.
 	if index < monster_displays.size() and monster_displays[index] and monster_displays[index].monster_data:
@@ -101,42 +99,43 @@ func _draw_card_from_index(index: int):
 		print("BUG: No monster from which to draw data.")
 
 func _on_card_hovered(card_in_hand):
-	# If there's already a card zoomed, get rid of it.
+	# If a card is already zoomed in, get rid of it instantly.
 	if zoomed_card:
 		zoomed_card.queue_free()
 
-	# Create a new instance of the card scene for zooming.
-	zoomed_card = CardActDisplayScene.instantiate()
-	# Set its data from the card in the hand.
-	zoomed_card.setup(card_in_hand.card_data)
+	# --- NEW SMARTER METHOD ---
+	# Instead of hard-coding the scene, we ask the card in the hand for its
+	# own scene file path. This makes it work for ANY type of card!
+	var card_scene_to_load = load(card_in_hand.scene_file_path)
+	zoomed_card = card_scene_to_load.instantiate()
 	
-	# This is the magic bullet that fixes the flicker!
-	# It makes the zoomed card invisible to the mouse.
+	# This makes the zoomed card invisible to the mouse, fixing the flicker.
 	zoomed_card.mouse_filter = MOUSE_FILTER_IGNORE
 
-	# Add it to our top layer and position it
+	# --- THE CRITICAL FIX ---
+	# 1. Add the card to the scene tree FIRST. It is now "in the world".
 	card_zoom_layer.add_child(zoomed_card)
+	# 2. NOW that it's in the world, we can safely call setup() on it.
+	await zoomed_card.setup(card_in_hand.card_data)
+	
+	# Position and scale the card *after* it has been set up.
 	zoomed_card.global_position = card_in_hand.global_position
 	zoomed_card.scale = Vector2(0.5, 0.5) # Start it small
 
 	# Animate!
-	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	var tween = create_tween().set_parallel().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(zoomed_card, "scale", Vector2(1, 1), 0.2)
-	# You can also tween its position to the center of the screen, etc.
 	tween.tween_property(zoomed_card, "global_position", get_viewport_rect().size / 2 - zoomed_card.size / 2, 0.2)
 
-
-func _on_card_unhovered(card_in_hand):
+func _on_card_unhovered(_card_in_hand): # Added underscore to fix the warning
 	if not zoomed_card:
 		return
 
 	var card_to_dismiss = zoomed_card
-	zoomed_card = null # Clear the reference
+	zoomed_card = null
 
-	# Animate away and then delete
 	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	tween.tween_property(card_to_dismiss, "scale", Vector2(0, 0), 0.2)
-	# When the animation is done, queue_free() deletes the node safely.
 	tween.finished.connect(card_to_dismiss.queue_free)
 
 func draw_ally1():
